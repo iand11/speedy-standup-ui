@@ -1,23 +1,56 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import { deleteBlocker, getBlockers, createBlocker } from './services/blockers';
+import { BasicCard } from '../src/components/box';
+import { InputForm } from '../src/components/form';
 
-function App() {
+
+const App = () => {
+  const [blockers, setBlockers] = useState([]);
+  useEffect(() => {
+    getAllBlockers();
+  }, [])
+
+  const getAllBlockers = async () => {
+    const blockers = await getBlockers();
+    setBlockers(blockers);
+  }
+
+  const removeBlocker = async (blockerId) => {
+    const res = await deleteBlocker(blockerId);
+    res && getAllBlockers();
+  }
+
+  const addBlocker = async ({ name, blocker, ticket }) => {
+    const res = await createBlocker({ name, blocker, ticket });
+    res && getAllBlockers();
+  }
+
+  const renderBlockers = () => {
+    if (blockers.length) {
+      return blockers.map((blocker) => {
+        return (
+          <div>
+            <BasicCard
+              name={blocker.name}
+              blocker={blocker.blocker}
+              ticket={blocker.ticket}
+              deleteBlocker={() => removeBlocker(blocker._id)}
+            />
+          </div>
+        )
+      })
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h2>Speedy Standup</h2>
+      <div style={{ padding: 20 }}>
+        <InputForm createBlocker={addBlocker} />
+      </div>
+      <div style={{ display: "flex", flexFlow: "row wrap", overflow: false, maxWidth: 1200, margin: 'auto', padding: 0 }}>
+        {renderBlockers()}
+      </div>
     </div>
   );
 }

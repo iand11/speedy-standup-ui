@@ -75,7 +75,7 @@ export const Chat = () => {
     return (
       messages.length &&
       messages.map((item, i) => {
-        const align = i % 2 === 0 ? "right" : "left";
+        const align = item.name === name ? "right" : "left";
         return (
           <ListItem key={i}>
             <Grid container>

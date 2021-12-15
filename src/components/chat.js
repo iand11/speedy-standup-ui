@@ -12,7 +12,10 @@ import ListItemText from "@mui/material/ListItemText";
 import SendIcon from "@mui/icons-material/Send";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
-const socket = io("localhost:3001", {
+
+const BASE_URL = process.env.BASE_URL
+
+const socket = io(BASE_URL, {
   reconnectionDelay: 1000,
   reconnection: true,
   reconnectionAttemps: 10,

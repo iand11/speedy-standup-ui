@@ -9,6 +9,8 @@ import { clear } from "../src/util/storage";
 
 import "./App.css";
 
+require('dotenv').config()
+
 const App = () => {
   const [blockers, setBlockers] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);

@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { get } from '../util/storage';
+
 
 export function InputForm({ createBlocker }) {
-  const [name, setName] = useState('');
-  const [blocker, setblocker] = useState('');
-  const [ticket, setTicket] = useState('');
+  const userName = get("name");
+  const [name, setName] = useState(userName || "");
+  const [blocker, setblocker] = useState("");
+  const [ticket, setTicket] = useState("");
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -14,24 +17,24 @@ export function InputForm({ createBlocker }) {
 
   const handleBlockerChange = (event) => {
     setblocker(event.target.value);
-  }
+  };
 
   const handleTicketChange = (event) => {
     setTicket(event.target.value);
-  }
+  };
 
   const handleClick = () => {
-    setTicket('')
+    setTicket("");
     createBlocker({ name, blocker, ticket });
-    setName('');
-    setblocker('')
-  }
+    setName(userName || "");
+    setblocker("");
+  };
 
   return (
     <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        "& .MuiTextField-root": { m: 1, width: "25ch" },
       }}
       noValidate
       autoComplete="off"
@@ -63,8 +66,14 @@ export function InputForm({ createBlocker }) {
           onChange={handleTicketChange}
           variant="standard"
         />
-        <Button onClick={handleClick} sx={{ marginLeft: 1, marginTop: 3 }} variant="contained">Submit</Button>
+        <Button
+          onClick={handleClick}
+          sx={{ marginLeft: 1, marginTop: 3 }}
+          variant="contained"
+        >
+          Submit
+        </Button>
       </div>
-    </Box >
+    </Box>
   );
 }

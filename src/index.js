@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { ComponentProvider } from "./context/componentContext";
+import { ComponentProvider } from "./context/ComponentContext";
 require("dotenv").config();
 
 ReactDOM.render(

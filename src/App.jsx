@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { InputForm } from "./components/form";
-import { Chat } from "./components/chat";
-import { Login } from "./components/login";
-import { Header } from "./components/header";
-import { Calendar } from "./components/calendar";
-import { Blockers } from "./components/blockers";
-import { useComponentContext } from "./context/componentContext";
+import { InputForm } from "./components/Form";
+import { Chat } from "./components/Chat";
+import { Login } from "./components/Login";
+import { Header } from "./components/Header";
+import { Calendar } from "./components/Calendar";
+import { Blockers } from "./components/Blockers";
+import { useComponentContext } from "./context/ComponentContext";
 import { checkAuth } from "./services/auth";
 
 import "./App.css";

@@ -9,7 +9,7 @@ import ListItemText from "@mui/material/ListItemText";
 import SendIcon from "@mui/icons-material/Send";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
-import { useComponentContext } from "../context/componentContext";
+import { useComponentContext } from "../context/ComponentContext";
 
 import "./styles/componentStyles.css";
 

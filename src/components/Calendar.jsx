@@ -2,7 +2,7 @@ import * as React from "react";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import StaticDatePicker from "@mui/lab/StaticDatePicker";
-import { useComponentContext } from "../context/componentContext";
+import { useComponentContext } from "../context/ComponentContext";
 import { actionTypes } from "../reducers/actionTypes";
 
 export const Calendar = () => {

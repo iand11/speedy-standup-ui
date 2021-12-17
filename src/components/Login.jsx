@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { login } from "../api/auth";
 import { set } from "../services/storage";
-import { useComponentContext } from "../context/componentContext";
+import { useComponentContext } from "../context/ComponentContext";
 import { actionTypes } from "../reducers/actionTypes";
 
 import "./styles/componentStyles.css";

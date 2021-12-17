@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { BlockerCard } from "./BlockerCard";
-import { useComponentContext } from "../context/ComponentContext";
+import { BlockerCard } from "./blockerCard";
+import { useComponentContext } from "../context/componentContext";
 import { getAllBlockers, removeBlocker } from "../services/blockers";
 
 export const Blockers = () => {

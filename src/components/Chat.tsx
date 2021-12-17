@@ -13,12 +13,17 @@ import { useComponentContext } from "../context/ComponentContext";
 
 import "./styles/componentStyles.css";
 
-const BASE_URL = process.env.BASE_URL;
+type Message = {
+  name: string,
+  message: string,
+  time: string
+}
+
+const BASE_URL = process.env.BASE_URL || '';
 
 const socket = io(BASE_URL, {
   reconnectionDelay: 1000,
   reconnection: true,
-  reconnectionAttemps: 10,
   transports: ["websocket"],
   agent: false,
   upgrade: false,
@@ -31,8 +36,8 @@ export const Chat = () => {
       userInfo: { name },
     },
   } = useComponentContext();
-  const [inputValue, setInputValue] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [inputValue, setInputValue] = useState<String>("");
+  const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
     socket.once("message", (data) => {
@@ -40,8 +45,8 @@ export const Chat = () => {
     });
   }, [messages]);
 
-  const sendMessage = (message) => {
-    const currentTime = new moment();
+  const sendMessage = (message: string) => {
+    const currentTime = moment(new Date());
     currentTime.format("HH:mm:ss");
     socket.emit("message", {
       message,
@@ -54,19 +59,19 @@ export const Chat = () => {
     return (
       messages.length &&
       messages.map((item, i) => {
-        const align = item.name === name ? "right" : "left";
+        // const align = item.name === name ? "right" : "left";
         return (
           <ListItem key={`${i}-${name}`}>
             <Grid container>
               <Grid item xs={12}>
                 <ListItemText
-                  align={align}
+                  // align={align}
                   primary={item.message}
                 ></ListItemText>
               </Grid>
               <Grid item xs={12}>
                 <ListItemText
-                  align={align}
+                  // align={align}
                   secondary={item.name}
                 ></ListItemText>
               </Grid>
@@ -103,6 +108,7 @@ export const Chat = () => {
           sx={{ p: "10px" }}
           aria-label="directions"
           onClick={() => {
+            // @ts-ignore TS2345
             sendMessage(inputValue);
             setInputValue("");
           }}

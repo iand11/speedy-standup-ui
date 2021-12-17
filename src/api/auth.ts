@@ -1,7 +1,7 @@
 import { get } from "../services/storage";
 const BASE_URL = process.env.BASE_URL
 
-export const login = async (email, password) => {
+export const login = async (email: string, password: string) => {
   const body = JSON.stringify({ email: email, password: password });
   try {
     const response = await fetch(
@@ -17,7 +17,7 @@ export const login = async (email, password) => {
     const auth = await response.json();
     return auth;
   } catch (err) {
-    console.err(err);
+    console.error(err);
   }
 };
 

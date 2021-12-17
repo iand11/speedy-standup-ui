@@ -1,13 +1,14 @@
-import { userInfoReducer } from "../reducers/userInfoReducer";
+import { userInfoReducer } from "./userInfoReducer";
 import { blockersReducer } from "./blockersReducer";
-import { initialState } from "../context/initialState";
+import { initialState, InitialStateType } from "../context/initialState";
 import { selectedDateReducer } from "./selectedDateReducer";
 import { authReducer } from "./authReducer";
-import { actionTypes } from "./actionTypes";
+import { ActionTypes } from "./actionTypes";
+import { Actions } from "./actionTypes";
 
 const combineReducers = (
-  { userInfo, blockers, selectedDate, isAuthenticated },
-  action
+  { userInfo, blockers, selectedDate, isAuthenticated }: InitialStateType,
+  action: Actions
 ) => ({
   userInfo: userInfoReducer(userInfo, action),
   blockers: blockersReducer(blockers, action),
@@ -15,9 +16,9 @@ const combineReducers = (
   isAuthenticated: authReducer(isAuthenticated, action),
 });
 
-const rootReducer = (state, action) => {
-  if (action.type === actionTypes.RESET) {
-    sessionStorage.removeItem(process.env.SESSION_STORAGE_KEY);
+const rootReducer = (state: InitialStateType, action: Actions) => {
+  if (action.type === ActionTypes.RESET) {
+    sessionStorage.removeItem(process.env.SESSION_STORAGE_KEY || '');
     return {
       ...initialState,
     };

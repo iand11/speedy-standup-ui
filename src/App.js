@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { InputForm } from "./components/Form";
-import { Chat } from "./components/Chat";
-import { Login } from "./components/Login";
-import { Header } from "./components/Header";
-import { Calendar } from "./components/Calendar";
+import { InputForm } from "../src/components/Form";
+import { Chat } from "../src/components/Chat";
+import { Login } from "../src/components/Login";
+import { Header } from "../src/components/Header";
+import { Calendar } from "../src/components/Calendar";
 import { Blockers } from "../src/components/Blockers";
 import { useComponentContext } from "./context/ComponentContext";
 import { checkAuth } from "./services/auth";

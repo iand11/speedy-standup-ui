@@ -587,6 +587,7 @@ module.exports = function (webpackEnv) {
       new webpack.DefinePlugin({
         'process.env': {
           'BASE_URL': JSON.stringify(process.env.BASE_URL),
+          'SESSION_STORAGE_KEY': JSON.stringify(process.env.SESSION_STORAGE_KEY)
         }
       }),
       // Inlines the webpack runtime script. This script is too small to warrant

@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { login } from "../api/auth";
+import { set } from "../services/storage";
+import { useComponentContext } from "../context/ComponentContext";
+import { actionTypes } from "../reducers/actionTypes";
 
-import { login } from "../../src/services/auth";
-import { set } from "../../src/util/storage";
+import "./styles/componentStyles.css";
 
-export const Login = ({ checkAuth }) => {
+export const Login = () => {
+  const { dispatch } = useComponentContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,39 +24,41 @@ export const Login = ({ checkAuth }) => {
   const handleClick = async () => {
     const res = await login(email, password);
     if (res) {
-      const { name, email, token } = res;
-      set("name", name);
-      set("email", email);
+      const { token } = res;
       set("token", token);
-      checkAuth();
+      dispatch({ type: actionTypes.SET_IS_AUTHENTICATED, payload: true });
     }
   };
 
   return (
-    <div style={{ width: "30%" }}>
+    <div className="login">
       <TextField
-        id="standard-textarea"
-        label="Name"
-        placeholder="Name"
+        className="login--input"
+        sx={{ marginBottom: 2 }}
+        id="outlined-basic"
+        label="Email"
+        placeholder="Email"
         value={email}
         onChange={handleEmailChange}
-        variant="standard"
+        variant="outlined"
       />
       <TextField
-        id="standard-textarea"
-        label="Name"
-        placeholder="Name"
+        className="login--input"
+        id="outlined-basic"
+        label="Password"
+        placeholder="Password"
         value={password}
         type="password"
         onChange={handlePasswordChange}
-        variant="standard"
+        variant="outlined"
       />
       <Button
         onClick={handleClick}
-        sx={{ marginLeft: 1, marginTop: 3 }}
+        className="login--input"
+        sx={{ marginTop: 2, height: 40 }}
         variant="contained"
       >
-        Submit
+        Login
       </Button>
     </div>
   );

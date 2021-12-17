@@ -1,107 +1,46 @@
-import { useEffect, useState } from "react";
-import { deleteBlocker, getBlockers, createBlocker } from "./services/blockers";
-import { BasicCard } from "../src/components/box";
-import { InputForm } from "../src/components/form";
-import { Chat } from "../src/components/chat";
-import { Login } from "../src/components/login";
-import { me } from "../src/services/auth";
-import { clear } from "../src/util/storage";
+import { useEffect } from "react";
+import { InputForm } from "./components/Form";
+import { Chat } from "./components/Chat";
+import { Login } from "./components/Login";
+import { Header } from "./components/Header";
+import { Calendar } from "./components/Calendar";
+import { Blockers } from "../src/components/Blockers";
+import { useComponentContext } from "./context/ComponentContext";
+import { checkAuth } from "./services/auth";
 
 import "./App.css";
 
-require('dotenv').config()
-
 const App = () => {
-  const [blockers, setBlockers] = useState([]);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    dispatch,
+    state: { isAuthenticated },
+  } = useComponentContext();
 
   useEffect(() => {
-    checkAuth();
-    getAllBlockers();
+    checkAuth(dispatch);
   }, []);
-
-  const checkAuth = async () => {
-    setIsLoading(true);
-    const userInfo = await me();
-    const { name } = userInfo;
-    console.log("USER IFNO", userInfo);
-    if (!name) {
-      setIsAuthenticated(false);
-      clear();
-      setIsLoading(false);
-    } else {
-      setIsAuthenticated(true);
-      setIsLoading(false);
-    }
-  };
-  const getAllBlockers = async () => {
-    const blockers = await getBlockers();
-    setBlockers(blockers);
-  };
-
-  const removeBlocker = async (blockerId) => {
-    const res = await deleteBlocker(blockerId);
-    res && getAllBlockers();
-  };
-
-  const addBlocker = async ({ name, blocker, ticket }) => {
-    const res = await createBlocker({ name, blocker, ticket });
-    res && getAllBlockers();
-  };
-
-  const renderBlockers = () => {
-    if (blockers.length) {
-      return blockers.map((blocker) => {
-        return (
-          <div>
-            <BasicCard
-              name={blocker.name}
-              blocker={blocker.blocker}
-              ticket={blocker.ticket}
-              deleteBlocker={() => removeBlocker(blocker._id)}
-            />
-          </div>
-        );
-      });
-    }
-  };
-
-  const renderLogin = () => {
-    if (!isAuthenticated && !isLoading) {
-      return <Login checkAuth={checkAuth} />;
-    }
-  };
 
   const renderApp = () => {
     if (isAuthenticated) {
       return (
-        <div style={{ display: "flex" }}>
-          <div>
-            <div style={{ padding: 20 }}>
-              <InputForm createBlocker={addBlocker} />
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexFlow: "row wrap",
-                overflow: false,
-                maxWidth: 1200,
-                margin: "auto",
-                padding: 0,
-              }}
-            >
-              {renderBlockers()}
-            </div>
+        <div className="inner-app">
+          <div className="blocker-wrapper">
+            <InputForm />
+            <Blockers />
           </div>
-          <Chat />
+          <div className="chat-wrapper">
+            <Calendar />
+            <Chat />
+          </div>
         </div>
       );
     }
   };
+
   return (
     <div>
-      {renderLogin()}
+      {isAuthenticated && <Header />}
+      {!isAuthenticated && <Login />}
       {renderApp()}
     </div>
   );

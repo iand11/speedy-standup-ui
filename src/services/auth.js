@@ -1,41 +1,14 @@
-import { get } from "../util/storage";
-const BASE_URL = process.env.BASE_URL
+import { me } from "../api/auth";
+import { actionTypes } from "../reducers/actionTypes";
 
-export const login = async (email, password) => {
-  const body = JSON.stringify({ email: email, password: password });
-  try {
-    const response = await fetch(
-      `${BASE_URL}/user/login`,
-      {
-        body,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-      }
-    );
-    const auth = await response.json();
-    return auth;
-  } catch (err) {
-    console.err(err);
-  }
-};
+const { SET_IS_AUTHENTICATED, SET_USER } = actionTypes;
 
-export const me = async () => {
-  const token = get("token");
-  try {
-    const response = await fetch(
-      `${BASE_URL}/user/me`,
-      {
-        method: "GET",
-        headers: {
-          token: token,
-        },
-      }
-    );
-    const me = await response.json();
-    return me;
-  } catch (err) {
-    console.error(err);
+export const checkAuth = async (dispatch) => {
+  const userInfo = await me();
+  const { _id: id, name, email } = userInfo;
+
+  if (id) {
+    dispatch({ type: SET_IS_AUTHENTICATED, payload: true });
+    dispatch({ type: SET_USER, payload: { name, email, id } });
   }
 };

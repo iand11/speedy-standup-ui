@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { InputForm } from "./components/Form";
 import { Chat } from "./components/Chat";
 import { Login } from "./components/Login";

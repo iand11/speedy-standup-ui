@@ -3,7 +3,8 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import StaticDatePicker from "@mui/lab/StaticDatePicker";
 import { useComponentContext } from "../context/ComponentContext";
-import { actionTypes } from "../reducers/actionTypes";
+import { ActionTypes } from "../reducers/actionTypes";
+import { TextField } from "@mui/material";
 
 export const Calendar = () => {
   const {
@@ -18,8 +19,10 @@ export const Calendar = () => {
         openTo="day"
         value={selectedDate}
         onChange={(selectedDate) => {
-          dispatch({ type: actionTypes.SET_DATE, payload: selectedDate })
+          const date = new Date(selectedDate || '');
+          dispatch({ type: ActionTypes.SET_DATE, payload: date })
         }}
+        renderInput={(params) => <TextField {...params} />}
       />
     </LocalizationProvider>
   );

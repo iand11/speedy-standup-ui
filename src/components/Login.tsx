@@ -4,20 +4,22 @@ import Button from "@mui/material/Button";
 import { login } from "../api/auth";
 import { set } from "../services/storage";
 import { useComponentContext } from "../context/ComponentContext";
-import { actionTypes } from "../reducers/actionTypes";
+import { ActionTypes } from "../reducers/actionTypes";
 
 import "./styles/componentStyles.css";
+
+type Event = React.ChangeEvent<HTMLInputElement>
 
 export const Login = () => {
   const { dispatch } = useComponentContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleEmailChange = (event) => {
+  const handleEmailChange = (event: Event) => {
     setEmail(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
+  const handlePasswordChange = (event: Event) => {
     setPassword(event.target.value);
   };
 
@@ -26,7 +28,7 @@ export const Login = () => {
     if (res) {
       const { token } = res;
       set("token", token);
-      dispatch({ type: actionTypes.SET_IS_AUTHENTICATED, payload: true });
+      dispatch({ type: ActionTypes.SET_IS_AUTHENTICATED, payload: true });
     }
   };
 

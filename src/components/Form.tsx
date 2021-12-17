@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useComponentContext } from "../context/ComponentContext";
-import { getAllBlockers } from "../services/blockers";
+import { getAllBlockers, AddBlockerProps } from "../services/blockers";
 import { createBlocker } from "../api/blockers";
+
+type Event = React.ChangeEvent<HTMLInputElement>
 
 export const InputForm = () => {
   const {
@@ -17,25 +19,25 @@ export const InputForm = () => {
   const [blocker, setblocker] = useState("");
   const [ticket, setTicket] = useState("");
 
-  const addBlocker = async ({ name, blocker, ticket }) => {
+  const addBlocker = async ({ name, blocker, ticket, dispatch }: AddBlockerProps) => {
     const res = await createBlocker({ name, blocker, ticket });
     res && getAllBlockers(dispatch);
   };
 
-  const handleNameChange = (event) => {
+  const handleNameChange = (event: Event) => {
     setName(event.target.value);
   };
 
-  const handleBlockerChange = (event) => {
+  const handleBlockerChange = (event: Event) => {
     setblocker(event.target.value);
   };
 
-  const handleTicketChange = (event) => {
+  const handleTicketChange = (event: Event) => {
     setTicket(event.target.value);
   };
 
   const handleClick = () => {
-    addBlocker({ name, blocker, ticket });
+    addBlocker({ name, blocker, ticket, dispatch });
     setName(userName || "");
     setblocker("");
     setTicket("");

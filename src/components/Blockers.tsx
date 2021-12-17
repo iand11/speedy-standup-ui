@@ -29,7 +29,7 @@ export const Blockers = () => {
                 blocker={blocker.blocker}
                 ticket={blocker.ticket}
                 deleteBlocker={() =>
-                  removeBlocker(blocker._id, dispatch, blockers)
+                  removeBlocker(blocker._id || '', dispatch, blockers)
                 }
               />
             </div>

@@ -2,6 +2,12 @@ import { get } from "../services/storage";
 
 const BASE_URL = process.env.BASE_URL;
 
+type CreateBlockerProps = {
+  name: string,
+  blocker: string,
+  ticket: string,
+}
+
 export const getBlockers = async () => {
   const response = await fetch(
    `${BASE_URL}/blocker/get-all`
@@ -10,7 +16,7 @@ export const getBlockers = async () => {
   return blockers;
 };
 
-export const deleteBlocker = async (blockerId) => {
+export const deleteBlocker = async (blockerId: string) => {
   const token = get("token");
   try {
     const response = await fetch(
@@ -23,7 +29,7 @@ export const deleteBlocker = async (blockerId) => {
   }
 };
 
-export const createBlocker = async ({ name, blocker, ticket }) => {
+export const createBlocker = async ({ name, blocker, ticket }: CreateBlockerProps) => {
   const token = get("token");
   const body = JSON.stringify({ name: name, blocker: blocker, ticket: ticket });
   try {
@@ -40,6 +46,6 @@ export const createBlocker = async ({ name, blocker, ticket }) => {
     );
     return response;
   } catch (err) {
-    console.err(err);
+    console.error(err);
   }
 };

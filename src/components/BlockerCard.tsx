@@ -8,7 +8,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import "./styles/componentStyles.css";
 
-export const BlockerCard = ({ name, blocker, ticket, deleteBlocker }) => {
+type BlockerCardProps = {
+  name: string,
+  blocker: string,
+  ticket: string,
+  deleteBlocker: () => void
+}
+
+export const BlockerCard = ({ name, blocker, ticket, deleteBlocker }: BlockerCardProps) => {
   return (
     <div className="blocker-card">
       <CardContent>
@@ -21,8 +28,8 @@ export const BlockerCard = ({ name, blocker, ticket, deleteBlocker }) => {
       </CardContent>
       <CardActions>
         <Button size="small">{ticket}</Button>
-        <IconButton aria-label="delete">
-          <DeleteIcon onClick={deleteBlocker} />
+        <IconButton onClick={deleteBlocker} aria-label="delete">
+          <DeleteIcon/>
         </IconButton>
       </CardActions>
     </div>

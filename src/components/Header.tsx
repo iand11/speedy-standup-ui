@@ -8,13 +8,14 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useComponentContext } from "../context/ComponentContext";
+import { ActionTypes } from "../reducers/actionTypes";
 
 export const Header = () => {
   const { dispatch } = useComponentContext();
 
   const logout = () => {
     clear();
-    dispatch({ type: "SET_IS_AUTHENTICATED", payload: false });
+    dispatch({ type: ActionTypes.SET_IS_AUTHENTICATED, payload: false });
   };
   return (
     <Box sx={{ flexGrow: 1 }}>

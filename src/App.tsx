@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
-import { InputForm } from "./components/Form";
+import { BlockerForm } from "./components/BlockerForm";
 import { Chat } from "./components/Chat";
-import { Login } from "./components/Login";
+// import { Login } from "./components/Login";
 import { Header } from "./components/Header";
 import { Calendar } from "./components/Calendar";
 import { Blockers } from "./components/Blockers";
 import { useComponentContext } from "./context/ComponentContext";
 import { checkAuth } from "./services/auth";
+import { AuthForm } from './components/AuthForm';
 
 import "./App.css";
 
@@ -25,7 +26,7 @@ const App = () => {
       return (
         <div className="inner-app">
           <div className="blocker-wrapper">
-            <InputForm />
+            <BlockerForm />
             <Blockers />
           </div>
           <div className="chat-wrapper">
@@ -39,8 +40,8 @@ const App = () => {
 
   return (
     <div>
-      {isAuthenticated && <Header />}
-      {!isAuthenticated && <Login />}
+      {<Header />}
+      {!isAuthenticated && <AuthForm />}
       {renderApp()}
     </div>
   );

@@ -8,7 +8,7 @@ const BASE_URL = process.env.BASE_URL
 const { SET_IS_AUTHENTICATED, SET_USER } = ActionTypes;
 
 const dispatch = jest.fn();
-const mockUser = { name: 'ian', email: 'test@test.com', _id: 'U_123' }
+const mockUser = { name: 'ian', email: 'test@test.com', id: 'U_123' }
 
 describe('Auth Service Test Suite', () => {
   let mock: MockAdapter;
@@ -37,7 +37,6 @@ describe('Auth Service Test Suite', () => {
       await checkAuth(dispatch);
 
       // then
-      // expect(mockMe).toBeCalled();
       expect(dispatch).toBeCalledWith({ type: ActionTypes.SET_IS_AUTHENTICATED, payload: false })
       expect(dispatch).toBeCalledWith({ type: ActionTypes.RESET, payload: true })
     })
@@ -48,7 +47,7 @@ describe('Auth Service Test Suite', () => {
       mock.onPost(`${BASE_URL}/user/login`).reply(200, { ...mockUser })
 
       // when
-      await loginUser('ian@me.com', 'P123456', dispatch);
+      await loginUser({ email: 'ian@me.com', password: 'P123456', dispatch });
 
       // then
       expect(dispatch).toBeCalledWith({ type: SET_USER, payload: mockUser })

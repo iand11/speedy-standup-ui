@@ -1,15 +1,15 @@
 import React from 'react';
-import { Login } from '../../components/Login';
+import { AuthForm } from '../../components/AuthForm';
 import { ComponentProvider, ComponentContext } from '../../context/ComponentContext';
 import { render, fireEvent } from '@testing-library/react';
 import * as authService from '../../services/auth';
 import { initialState } from '../testUtils';
 
-describe('Login Test Suite', () => {
+describe('Authform Test Suite', () => {
   it('displays error text when there is an error returned from api request', () => {
     const { container } = render(
       <ComponentProvider store={{ ...initialState, loginError: true }}>
-        <Login />
+        <AuthForm />
       </ComponentProvider>
     );
 
@@ -23,7 +23,7 @@ describe('Login Test Suite', () => {
     const mockDispatch = jest.fn();
     const { container } = render(
       <ComponentContext.Provider value={{ state: initialState, dispatch: mockDispatch }}>
-        <Login />
+        <AuthForm />
       </ComponentContext.Provider>
     );
 
@@ -37,6 +37,6 @@ describe('Login Test Suite', () => {
     fireEvent.click(loginButton);
 
     // then
-    expect(loginSpy).toHaveBeenCalledWith(email, password, mockDispatch)
+    expect(loginSpy).toHaveBeenCalledWith({ email, password, dispatch: mockDispatch })
   })
 })

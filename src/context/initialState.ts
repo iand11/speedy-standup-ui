@@ -4,7 +4,7 @@ export interface InitialStateType {
   userInfo: {
     name: string,
     email: string,
-    _id: string
+    id: string
   },
   blockers: Blocker[],
   selectedDate: Date,
@@ -16,7 +16,7 @@ export const initialState: InitialStateType = {
   userInfo: {
     name: "",
     email: "",
-    _id: "",
+    id: "",
   },
   blockers: [],
   selectedDate: new Date(),

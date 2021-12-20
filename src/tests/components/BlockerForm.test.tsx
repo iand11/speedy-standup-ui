@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentProvider, ComponentContext } from '../../context/ComponentContext';
-import { InputForm } from '../../components/Form';
+import { BlockerForm } from '../../components/BlockerForm';
 import { render, fireEvent } from '@testing-library/react';
 import * as blockerService from '../../services/blockers';
 
@@ -10,7 +10,7 @@ describe("Input Form Test Suite", () => {
   it('should update values of input fields correctly', () => {
     const { container } = render(
       <ComponentProvider store={initialState}>
-        <InputForm />
+        <BlockerForm />
       </ComponentProvider>
     );
 
@@ -39,7 +39,7 @@ describe("Input Form Test Suite", () => {
     const mockDispatch = jest.fn();
     const { container } = render(
       <ComponentContext.Provider value={{ state: initialState, dispatch: mockDispatch}}>
-        <InputForm />
+        <BlockerForm />
       </ComponentContext.Provider>
     );
 

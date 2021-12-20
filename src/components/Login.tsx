@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { login } from "../api/auth";
-import { set } from "../services/storage";
 import { useComponentContext } from "../context/ComponentContext";
-import { ActionTypes } from "../reducers/actionTypes";
+import { loginUser } from '../services/auth';
 
 import "./styles/componentStyles.css";
 
 type Event = React.ChangeEvent<HTMLInputElement>
 
 export const Login = () => {
-  const { dispatch } = useComponentContext();
+  const { dispatch, state: { loginError } } = useComponentContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -24,20 +22,18 @@ export const Login = () => {
   };
 
   const handleClick = async () => {
-    const res = await login(email, password);
-    if (res) {
-      const { token } = res;
-      set("token", token);
-      dispatch({ type: ActionTypes.SET_IS_AUTHENTICATED, payload: true });
-    }
+    loginUser(email, password, dispatch);
   };
+
+  const helpText = loginError ? 'Incorrect Combination of Email and Password' : ''
 
   return (
     <div className="login">
       <TextField
+        error={loginError}
         className="login--input"
         sx={{ marginBottom: 2 }}
-        id="outlined-basic"
+        id="email-input"
         label="Email"
         placeholder="Email"
         value={email}
@@ -45,14 +41,16 @@ export const Login = () => {
         variant="outlined"
       />
       <TextField
+        error={loginError}
         className="login--input"
-        id="outlined-basic"
+        id="password-input"
         label="Password"
         placeholder="Password"
         value={password}
         type="password"
         onChange={handlePasswordChange}
         variant="outlined"
+        helperText={helpText}
       />
       <Button
         onClick={handleClick}

@@ -1,6 +1,6 @@
 const { localStorage } = window;
 
-export const set = (label: string, item: string) => {
+export const set = (label: string, item: any) => {
   localStorage.setItem(label, item);
 };
 

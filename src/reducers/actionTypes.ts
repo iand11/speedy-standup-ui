@@ -4,6 +4,7 @@ export type ActionMap<M extends { [index: string]: any }> = {
 
 export enum ActionTypes {
   SET_IS_AUTHENTICATED = "SET_IS_AUTHENTICATED",
+  SET_AUTH_ERROR = "SET_AUTH_ERROR",
   SET_BLOCKERS = "SET_BLOCKERS",
   SET_DATE = "SET_DATE",
   SET_USER = "SET_USER",
@@ -19,14 +20,15 @@ export type Actions =
 
 // Root
 type RootPayload = {
-  [ActionTypes.RESET]: undefined
+  [ActionTypes.RESET]: boolean
 }
 
 type RootActions = ActionMap<RootPayload>[keyof ActionMap<RootPayload>]
 
 // Auth
 type AuthPayload = {
-  [ActionTypes.SET_IS_AUTHENTICATED]: boolean
+  [ActionTypes.SET_IS_AUTHENTICATED]: boolean,
+  [ActionTypes.SET_AUTH_ERROR]: boolean,
 }
 
 type AuthActions = ActionMap<AuthPayload>[keyof ActionMap<AuthPayload>]

@@ -11,3 +11,9 @@ export type User = {
   _id: string,
   email: string,
 }
+
+export type CreateBlockerProps = {
+  name: string,
+  blocker: string,
+  ticket: string,
+}

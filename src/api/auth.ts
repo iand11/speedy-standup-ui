@@ -1,41 +1,28 @@
+import axios from 'axios';
 import { get } from "../services/storage";
 const BASE_URL = process.env.BASE_URL
 
 export const login = async (email: string, password: string) => {
   const body = JSON.stringify({ email: email, password: password });
-  try {
-    const response = await fetch(
-      `${BASE_URL}/user/login`,
-      {
-        body,
-        headers: {
-          "Content-Type": "application/json"
-        },
-        method: "POST",
-      }
-    );
-    const auth = await response.json();
-    return auth;
-  } catch (err) {
-    console.error(err);
-  }
+  const url = `${BASE_URL}/user/login`;
+  return axios({
+    method: 'POST',
+    url,
+    data: body,
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
 };
 
 export const me = async () => {
   const token = get("token");
-  try {
-    const response = await fetch(
-      `${BASE_URL}/user/me`,
-      {
-        method: "GET",
-        headers: {
-          token: token,
-        },
-      }
-    );
-    const me = await response.json();
-    return me;
-  } catch (err) {
-    console.error(err);
-  }
+  const url = `${BASE_URL}/user/me`
+  return axios({
+    method: 'GET',
+    url,
+    headers: {
+      token
+    }
+  });
 };

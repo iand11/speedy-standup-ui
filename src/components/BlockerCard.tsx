@@ -28,7 +28,7 @@ export const BlockerCard = ({ name, blocker, ticket, deleteBlocker }: BlockerCar
       </CardContent>
       <CardActions>
         <Button size="small">{ticket}</Button>
-        <IconButton onClick={deleteBlocker} aria-label="delete">
+        <IconButton data-testid="delete-button" onClick={deleteBlocker} aria-label="delete">
           <DeleteIcon/>
         </IconButton>
       </CardActions>

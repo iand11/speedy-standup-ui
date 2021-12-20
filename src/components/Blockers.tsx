@@ -11,7 +11,7 @@ export const Blockers = () => {
 
   useEffect(() => {
     getAllBlockers(dispatch);
-  }, []);
+  }, [dispatch]);
 
   const renderBlockers = () => {
     if (blockers.length) {
@@ -38,5 +38,5 @@ export const Blockers = () => {
     }
   };
 
-  return <div className="blockers-container">{renderBlockers()}</div>;
+  return <div data-testid="blockers-container" className="blockers-container">{renderBlockers()}</div>;
 };

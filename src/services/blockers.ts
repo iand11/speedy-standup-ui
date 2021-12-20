@@ -13,19 +13,32 @@ export type AddBlockerProps = {
 }
 
 export const getAllBlockers = async (dispatch: ContextDispatch) => {
-  const blockers = await getBlockers();
-  blockers && dispatch({ type: SET_BLOCKERS, payload: blockers });
+  try {
+    const { data: blockers } = await getBlockers();
+    console.log('DATA', blockers)
+    dispatch({ type: SET_BLOCKERS, payload: blockers });
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const removeBlocker = async (blockerId: string, dispatch: ContextDispatch, blockers: Blocker[]) => {
-  const res = await deleteBlocker(blockerId);
-  const updatedBlockers = blockers.filter(
-    (blocker) => blocker._id !== blockerId
-  );
-  res && dispatch({ type: SET_BLOCKERS, payload: updatedBlockers });
+  try {
+    await deleteBlocker(blockerId);
+    const updatedBlockers = blockers.filter(
+      (blocker) => blocker._id !== blockerId
+    );
+    dispatch({ type: SET_BLOCKERS, payload: updatedBlockers });
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const addBlocker = async ({ name, blocker, ticket, dispatch }: AddBlockerProps) => {
-  const res = await createBlocker({ name, blocker, ticket });
-  res && getAllBlockers(dispatch);
+  try {
+    await createBlocker({ name, blocker, ticket });
+    getAllBlockers(dispatch);
+  } catch (err) {
+    console.error(err);
+  }
 };

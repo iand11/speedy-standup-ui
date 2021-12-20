@@ -59,19 +59,19 @@ export const Chat = () => {
     return (
       messages.length &&
       messages.map((item, i) => {
-        // const align = item.name === name ? "right" : "left";
+        const align = item.name === name ? "right" : "left";
         return (
           <ListItem key={`${i}-${name}`}>
             <Grid container>
               <Grid item xs={12}>
                 <ListItemText
-                  // align={align}
+                  sx={{ textAlign: align }}
                   primary={item.message}
                 ></ListItemText>
               </Grid>
               <Grid item xs={12}>
                 <ListItemText
-                  // align={align}
+                  sx={{ textAlign: align }}
                   secondary={item.name}
                 ></ListItemText>
               </Grid>

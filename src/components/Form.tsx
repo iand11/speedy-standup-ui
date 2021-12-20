@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useComponentContext } from "../context/ComponentContext";
-import { getAllBlockers, AddBlockerProps } from "../services/blockers";
-import { createBlocker } from "../api/blockers";
+import { addBlocker } from "../services/blockers";
 
 type Event = React.ChangeEvent<HTMLInputElement>
 
@@ -15,14 +14,9 @@ export const InputForm = () => {
     },
   } = useComponentContext();
 
-  const [name, setName] = useState(userName || "");
+  const [name, setName] = useState(userName);
   const [blocker, setblocker] = useState("");
   const [ticket, setTicket] = useState("");
-
-  const addBlocker = async ({ name, blocker, ticket, dispatch }: AddBlockerProps) => {
-    const res = await createBlocker({ name, blocker, ticket });
-    res && getAllBlockers(dispatch);
-  };
 
   const handleNameChange = (event: Event) => {
     setName(event.target.value);
@@ -47,7 +41,7 @@ export const InputForm = () => {
     <div className="input-form-wrapper">
       <TextField
         sx={{ minWidth: 230 }}
-        id="standard-textarea"
+        id="name-input"
         label="Name"
         placeholder="Name"
         value={name}
@@ -56,7 +50,7 @@ export const InputForm = () => {
       />
       <TextField
         sx={{ minWidth: 230 }}
-        id="standard-textarea"
+        id="blocker-input"
         label="Blocker"
         placeholder="Blocker"
         multiline
@@ -66,7 +60,7 @@ export const InputForm = () => {
       />
       <TextField
         sx={{ minWidth: 230 }}
-        id="standard-textarea"
+        id="ticket-input"
         label="Ticket"
         placeholder="Ticket"
         multiline
@@ -75,6 +69,7 @@ export const InputForm = () => {
         variant="standard"
       />
       <Button
+        id="submit-button"
         onClick={handleClick}
         sx={{ marginLeft: 1, marginTop: 2 }}
         variant="contained"

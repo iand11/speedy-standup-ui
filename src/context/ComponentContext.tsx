@@ -13,7 +13,7 @@ export interface ContextType {
   dispatch: ContextDispatch,
 }
 
-const ComponentContext = createContext<ContextType>({
+export const ComponentContext = createContext<ContextType>({
   state: initialState,
   dispatch: () => null,
 });

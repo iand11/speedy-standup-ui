@@ -8,7 +8,8 @@ export interface InitialStateType {
   },
   blockers: Blocker[],
   selectedDate: Date,
-  isAuthenticated: boolean
+  isAuthenticated: boolean,
+  loginError: boolean
 }
 
 export const initialState: InitialStateType = {
@@ -20,4 +21,5 @@ export const initialState: InitialStateType = {
   blockers: [],
   selectedDate: new Date(),
   isAuthenticated: false,
+  loginError: false,
 };

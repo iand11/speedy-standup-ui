@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import moment from "moment";
-import Grid from "@mui/material/Grid";
-import Divider from "@mui/material/Divider";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import SendIcon from "@mui/icons-material/Send";
-import InputBase from "@mui/material/InputBase";
-import IconButton from "@mui/material/IconButton";
+import { ChatMessages } from "./ChatMessages";
+import { ChatInput } from "./ChatInput";
 import { useComponentContext } from "../context/ComponentContext";
 
 import "./styles/componentStyles.css";
@@ -36,7 +30,7 @@ export const Chat = () => {
       userInfo: { name },
     },
   } = useComponentContext();
-  const [inputValue, setInputValue] = useState<String>("");
+  const [inputValue, setInputValue] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
@@ -55,74 +49,10 @@ export const Chat = () => {
     });
   };
 
-  const renderMessages = () => {
-    return (
-      messages.length &&
-      messages.map((item, i) => {
-        const align = item.name === name ? "right" : "left";
-        return (
-          <ListItem key={`${i}-${name}`}>
-            <Grid container>
-              <Grid item xs={12}>
-                <ListItemText
-                  sx={{ textAlign: align }}
-                  primary={item.message}
-                ></ListItemText>
-              </Grid>
-              <Grid item xs={12}>
-                <ListItemText
-                  sx={{ textAlign: align }}
-                  secondary={item.name}
-                ></ListItemText>
-              </Grid>
-            </Grid>
-          </ListItem>
-        );
-      })
-    );
-  };
-
-  const renderChatSection = () => {
-    if (!messages.length) return null;
-    return (
-      <div className="chat-section">
-        <List className="chat-section--message-area">{renderMessages()}</List>
-        <Divider />
-      </div>
-    );
-  };
-
-  const renderChatInput = () => {
-    return (
-      <div className="chat--input-wrapper">
-        <InputBase
-          sx={{ ml: 1, flex: 1 }}
-          placeholder="Message The Group"
-          inputProps={{ "aria-label": "search google maps" }}
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <Divider orientation="vertical" />
-        <IconButton
-          color="primary"
-          sx={{ p: "10px" }}
-          aria-label="directions"
-          onClick={() => {
-            // @ts-ignore TS2345
-            sendMessage(inputValue);
-            setInputValue("");
-          }}
-        >
-          <SendIcon />
-        </IconButton>
-      </div>
-    );
-  };
-
   return (
     <div className="chat">
-      {renderChatSection()}
-      {renderChatInput()}
+      <ChatMessages userName={name} messages={messages} />
+      <ChatInput inputValue={inputValue} setInputValue={setInputValue} sendMessage={sendMessage}/>
     </div>
   );
 };

@@ -10,7 +10,17 @@ import { useComponentContext } from "../context/ComponentContext";
 import { logoutUser } from "../services/auth";
 
 export const Header = () => {
-  const { dispatch } = useComponentContext();
+  const { dispatch, state: { isAuthenticated } } = useComponentContext();
+
+  const renderLogout = () => {
+    if (!isAuthenticated) return null;
+
+    return (
+      <Button id="logout-button" onClick={() => logoutUser(dispatch)} color="inherit">
+        Logout
+      </Button>
+    )
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -28,9 +38,7 @@ export const Header = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Speedy Standup
           </Typography>
-          <Button id="logout-button" onClick={() => logoutUser(dispatch)} color="inherit">
-            Logout
-          </Button>
+          {renderLogout()}
         </Toolbar>
       </AppBar>
     </Box>

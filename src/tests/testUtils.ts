@@ -2,7 +2,7 @@ export const initialState = {
   userInfo: {
     name: "",
     email: "",
-    _id: "",
+    id: "",
   },
   blockers: [],
   selectedDate: new Date(),

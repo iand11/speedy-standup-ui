@@ -8,7 +8,7 @@ export interface Blocker {
 
 export type User = {
   name: string,
-  _id: string,
+  id: string,
   email: string,
 }
 

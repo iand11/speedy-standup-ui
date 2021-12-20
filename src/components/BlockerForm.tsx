@@ -6,7 +6,7 @@ import { addBlocker } from "../services/blockers";
 
 type Event = React.ChangeEvent<HTMLInputElement>
 
-export const InputForm = () => {
+export const BlockerForm = () => {
   const {
     dispatch,
     state: {

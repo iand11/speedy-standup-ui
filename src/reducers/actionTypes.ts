@@ -49,7 +49,7 @@ type DateActions = ActionMap<DatePayload>[keyof ActionMap<DatePayload>]
 
 // User
 type UserPayload = {
-  [ActionTypes.SET_USER]: { name: string, email: string, _id: string }
+  [ActionTypes.SET_USER]: { name: string, email: string, id: string }
 }
 
 type UserActions = ActionMap<UserPayload>[keyof ActionMap<UserPayload>];

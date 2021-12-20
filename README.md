@@ -22,6 +22,14 @@ To access the app locally visit ```https://speedy-standup-ui.herokuapp.com``` an
 
 You will need to provide a `.env` file with the base url of the server you would like to communicate with.
 
+## Tests
+```bash
+npm test
+```
+
+Jest tests using `testing-library/react` and `axios-mock-adapter`
+
+
 ## Tech Notes
 
 Powered by ```speedy-standup.herokuapp.com```

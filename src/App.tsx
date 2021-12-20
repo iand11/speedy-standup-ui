@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { BlockerForm } from "./components/BlockerForm";
 import { Chat } from "./components/Chat";
-// import { Login } from "./components/Login";
 import { Header } from "./components/Header";
 import { Calendar } from "./components/Calendar";
 import { Blockers } from "./components/Blockers";

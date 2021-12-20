@@ -17,7 +17,6 @@ const App = () => {
   } = useComponentContext();
 
   useEffect(() => {
-    console.log('HERE')
     checkAuth(dispatch);
   }, [dispatch]);
 

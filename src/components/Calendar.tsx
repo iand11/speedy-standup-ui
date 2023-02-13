@@ -1,7 +1,6 @@
 import * as React from "react";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import StaticDatePicker from "@mui/lab/StaticDatePicker";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { StaticDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { useComponentContext } from "../context/ComponentContext";
 import { ActionTypes } from "../reducers/actionTypes";
 import { TextField } from "@mui/material";
@@ -13,7 +12,7 @@ export const Calendar = () => {
   } = useComponentContext();
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
       <StaticDatePicker
         displayStaticWrapperAs="desktop"
         openTo="day"

@@ -18,7 +18,7 @@ Chat with fellow users
 npm install && npm start
 ```
 
-To access the app locally visit ```https://speedy-standup-ui.herokuapp.com``` and create an account and login in with those credentials.
+To access the app locally visit ```http://speedy-standup-ui.s3-website-us-east-1.amazonaws.com/``` and create an account and login in with those credentials.
 
 You will need to provide a `.env` file with the base url of the server you would like to communicate with.
 
